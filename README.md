@@ -1,18 +1,4 @@
-هذا **README احترافي أقوى** يمكنك وضعه في مستودعك:
 
-[GitHub Repository](https://github.com/shettysaish20/Telegram-AI-MCP-Assistant-Bot?utm_source=chatgpt.com)
-
-لكن مع تخصيصه لمشروعك:
-
-**[https://github.com/ayamnash/telegram-mcp-ms_access-agent](https://github.com/ayamnash/telegram-mcp-ms_access-agent)**
-
-وسأجعله يبدو كمشروع **AI Agent + MCP Integration** احترافي.
-
----
-
-# README.md
-
-```markdown
 # Telegram MCP MS Access Agent
 
 Control a **Microsoft Access database** directly from **Telegram** using an **AI Agent** powered by the **Model Context Protocol (MCP)**.
