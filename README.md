@@ -116,7 +116,7 @@ Clone the repository
 
 ```
 
-git clone [https://github.com/ayamnash/telegram-mcp-ms_access-agent.git](https://github.com/ayamnash/telegram-mcp-ms_access-agent.git)
+git clone [https://github.com/ayamnash/telegram-mcp-ms_access-agent.git]
 cd telegram-mcp-ms_access-agent
 
 ```
