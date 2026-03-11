@@ -1,5 +1,5 @@
-BOT_TOKEN = "from telegram"
-GEMINI_API_KEY = "from google ai studio"
+BOT_TOKEN = ""
+GEMINI_API_KEY = ""
 GEMINI_MODEL = "gemini-2.5-flash"
 # python location   
 #Python 32-bit Microsoft Office 32-bit Access Database Engine 32-bit 
