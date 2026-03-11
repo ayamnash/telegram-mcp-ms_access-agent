@@ -1,4 +1,6 @@
+## Demo Video
 
+[![Watch the video](https://img.youtube.com/vi/EWxoyoI3oHY/0.jpg)](https://youtu.be/EWxoyoI3oHY)
 # Telegram MCP MS Access Agent
 
 Control a **Microsoft Access database** directly from **Telegram** using an **AI Agent** powered by the **Model Context Protocol (MCP)**.
@@ -116,7 +118,7 @@ Clone the repository
 
 ```
 
-git clone [https://github.com/ayamnash/telegram-mcp-ms_access-agent.git]
+git clone https://github.com/ayamnash/telegram-mcp-ms_access-agent.git
 cd telegram-mcp-ms_access-agent
 
 ```
@@ -139,6 +141,7 @@ Create or edit `config.py` and add your credentials:
 
 BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
 GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"
+HUGGINGFACE_API_KEY= "YOUR_HUGGINGFACE_KEY"
 
 ```
 
