@@ -1,6 +1,9 @@
 ## Demo Video
 
 [![Watch the video](https://img.youtube.com/vi/EWxoyoI3oHY/0.jpg)](https://youtu.be/EWxoyoI3oHY)
+## v 0.02
+Giving AI information about your database and how to handle it
+![Architecture](diagram.svg)
 # Telegram MCP MS Access Agent
 
 Control a **Microsoft Access database** directly from **Telegram** using an **AI Agent** powered by the **Model Context Protocol (MCP)**.
