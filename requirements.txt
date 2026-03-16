@@ -1,4 +1,3 @@
-google-generativeai
 openai
 fastmcp==2.11.3
 pyodbc
