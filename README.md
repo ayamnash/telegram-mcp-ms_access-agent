@@ -18,7 +18,7 @@ In the same way a README.md tells a human what a project does, a skill.md acts a
 skill.md function
 ![Architecture](./images/skill.png)
 Comparison between AI models for JSON compliance and Skill.md file adherence
-![Architecture](./images/json and skill.png)
+![Architecture](./images/json_and_skill.png)
 
 # Project Repository
 
