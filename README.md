@@ -1,213 +1,600 @@
-## Demo Video
+# Tested  fastmcp==2.11.3(Recommended) it working 100%
+Some versions may not work perfectly.
 
-[![Watch the video](https://img.youtube.com/vi/EWxoyoI3oHY/0.jpg)](https://youtu.be/EWxoyoI3oHY)
-## v 0.03
-Using skill.md file 
-In the same way a README.md tells a human what a project does, a skill.md acts as a "behavior manual" for the AI. Its main goal is consistency and specialized performance.
-![Architecture](./images/bot_skill_md_architecture.svg)
-skill.md function
-![Architecture](./images/skill.png)
-Comparison between AI models for JSON compliance and Skill.md file adherence
-![Architecture](./images/json_and_skill.png)
-## v 0.02
-Giving AI information about your database and how to handle it.
-AI = brain, Python bot = coordinator, MCP server = hands that touch the database
-![Architecture](./images/db_context_v.02.svg)
-# Telegram MCP MS Access Agent
+# MCP Server ms_Access 🚀
 
-Control a **Microsoft Access database** directly from **Telegram** using an **AI Agent** powered by the **Model Context Protocol (MCP)**.
+A powerful Model Context Protocol (MCP) server that provides seamless integration with Microsoft Access databases. This server enables you to create, manage, and query Access databases through MCP-compatible applications like Kiro IDE.
 
-This project demonstrates how natural language messages sent to a Telegram bot can trigger database operations such as inserting records and querying data from a local Microsoft Access database.
+## Prerequisites
 
-The system connects Telegram, an AI model, and a local database through MCP to enable remote database interaction.
+- **Windows Operating System** (required for Access integration)
+- **Python 3.13+**
+- **Microsoft Access Database Engine** It is recommended to use the 2016 version.(required - see installation guide below)
+- **uv** package manager (recommended)
 
----
+### ⚠️ Important: Bit Architecture Compatibility
 
-# Project Repository
+**Python , Microsoft Access,Microsoft Access Database Engine must have the same bit architecture (32-bit or 64-bit).**
+Microsoft Access Database Engine 2016 Redistributable
 
-GitHub:
-https://github.com/ayamnash/telegram-mcp-ms_access-agent
+Choose:
 
----
+AccessDatabaseEngine.exe → for 32-bit systems or 32-bit Office
 
-# Overview
+AccessDatabaseEngine_X64.exe → for 64-bit Office
 
-This project shows how an AI agent can interact with a local database through MCP while using Telegram as a remote user interface.
+🧪 Summary:
+Feature	                     2010 Engine	         2016 Engine
+Compatibility	           Office 2010–2013	       Office 2010–2021
+New Excel/Access support	 ❌ Limited	                ✅ Full
+Future-proof	             ❌ No	                    ✅ Yes
+Stability	                 ✅ Yes                   	✅ Yes
+Bitness must match Office	 ✅ Yes	                    ✅ Yes
 
-Instead of manually accessing the database, users simply send commands to a Telegram bot.  
-The AI agent interprets the request and executes the required operation on the database.
+#### Check Your Python Architecture
 
-Currently supported operations:
+Open your terminal (CMD or PowerShell) and run:
 
-- Insert records into Microsoft Access
-- Query data from the database
-
----
-
-# Architecture
-
-The system follows a simple architecture:
-
+```bash
+python -c "import platform; print(platform.architecture())"
 ```
 
-Telegram User
-↓
-Telegram Bot
-↓
-AI Agent
-↓
-MCP Client
-↓
-MCP Server
-↓
-Microsoft Access Database
+This will show either:
+- `('64bit', 'WindowsPE')` - You have 64-bit Python
+- `('32bit', 'WindowsPE')` - You have 32-bit Python
 
+#### Check Your Office/Excel Architecture
+
+1. Open **Excel**
+2. Click **File** tab
+3. Choose **Account**
+4. Click **About Excel**
+
+You'll see something like:
 ```
-
-MCP acts as the communication layer that allows AI agents to interact with external tools and services in a standardized way. :contentReference[oaicite:1]{index=1}
-
----
-
-# Example Usage
-
-Insert a record:
-
+Microsoft® Excel® 2016 MSO (Version 2506 Build 16.0.18925.20076) 32-bit
 ```
-
-Add new employee
-Name: John
-Salary: 500
-
-```
-
-Query data:
-
-```
-
-Show all employees
-
-```
-
-The bot processes the request and sends the database results back to Telegram.
-
----
-
-# Requirements
-
-Ensure the architecture is consistent between Python and Microsoft Office.
-
-Use either:
-
-### 32-bit Environment
-
-```
-
-Python 32-bit
-Microsoft Office 32-bit
-Access Database Engine 32-bit
-
-```
-
 or
-
-### 64-bit Environment
-
+```
+Microsoft® Excel® 2019 MSO (Version 2506 Build 16.0.18925.20076) 64-bit
 ```
 
-Python 64-bit
-Microsoft Office 64-bit
-Access Database Engine 64-bit
+The last part shows whether you have 32-bit or 64-bit Office.
 
+### Installing Microsoft Access Database Engine
+
+**You must install the Access Database Engine that matches your Python architecture:**
+
+#### For 64-bit Python:
+- Download: [Microsoft Access Database Engine 2016 Redistributable (64-bit)](https://www.microsoft.com/en-us/download/details.aspx?id=54920)
+- File: `AccessDatabaseEngine_X64.exe`
+
+#### For 32-bit Python:
+- Download: [Microsoft Access Database Engine 2016 Redistributable (32-bit)](https://www.microsoft.com/en-us/download/details.aspx?id=54920)
+- File: `AccessDatabaseEngine.exe`
+
+#### Installation Notes:
+We will run the server inside a virtual environment.
+
+### Option 1: Using uv (Recommended)
+
+First, install uv if you haven't already:
+
+```bash
+# Install uv using pip
+pip install uv
+
+```bash
+# Clone the repository
+git clone https://github.com/ayamnash/MCP_server_ms_access_control.git
+cd MCP_server_ms_access_control
+
+# Create virtual environment and install dependencies
+uv venv
+uv pip install -e .
 ```
 
-Mixing architectures may cause database driver errors.
+### Option 2: Using pip
+
+```bash
+# Clone the repository
+git clone https://github.com/ayamnash/MCP_server_ms_access_control.git
+cd MCP_server_ms_access_control
+
+# Create virtual environment
+python -m venv .venv
+
+# Activate virtual environment
+# On Windows:
+.venv\Scripts\activate
+
+# Install dependencies
+pip install -e .
+```
+
+
+## Configuration
+
+### Kiro IDE Configuration claude desktop
+
+To use this MCP server with Kiro IDE, add the following configuration to your MCP settings:
+
+#### Workspace Configuration (`.kiro/settings/mcp.json`)
+LIKE AS 
+```json
+{
+  "mcpServers": {
+    "msaccess": {
+      "command": "F:\\mcp_server_ms_access_control1\\.venv\\Scripts\\python.exe",
+      "args": [
+        "F:\\mcp_server_ms_access_control1\\server.py"
+      ]
+    }
+  }
+}
+
+```
+Visual studio code 
+.vscode\mcp.json
+```json
+{
+  "servers": {
+    "msaccess": {
+      "command": "F:\\mcp_server_ms_access_control1\\.venv\\Scripts\\python.exe",
+      "args": [
+        "F:\\mcp_server_ms_access_control1\\server.py"
+      ]
+    }
+  }
+}
+```
+### Desktop Application Usage
+
+You can also run the server as a standalone application:
+
+```bash
+# Activate your virtual environment first
+.venv\Scripts\activate
+
+# Run the server
+python server.py
+```
+
+
+# **Prompt Samples**
+
+(1)Using msaccess MCP server to connect 
+C:\Users\it\AppData\Local\Programs\Kiro\treeview.accdb Make sure to save the changes and close the database  tool when  connecting
+to it and  ensure use this tool when  encounter an error.
+.
+i creat form to display accounts as tree 
+look at image attached 7.1.png
+i need create report look like as 7.png image attached 
+using mcp to do that ?
+
+ (2)Create a Microsoft Access database named pos.accdb in this path F:\mcp_server_ms_access_control
+
+ for a Point of Sale (POS) system with the following structure:
+
+Database  Name pos.accdb
+
+📦 Items Table:
+
+ItemID: unique ID (AutoNumber)
+
+ItemName: name of the item
+
+ItemPrice: price per unit
+
+ItemDescription: optional text
+
+🔁 Transactions Table:
+
+TransactionID: unique ID (AutoNumber)
+
+ItemID: link to the Items table
+
+TransactionType: either "Purchase" or "Sales"
+
+Quantity: number of items
+
+TransactionDate: date of transaction
+
+💸 Expenses Table:
+
+ExpenseID: unique ID (AutoNumber)
+
+ExpenseType: type/category of expense
+
+Amount: how much was spent
+
+ExpenseDate: date of expense
 
 ---
 
-# Installation
+Create and save four queries:
 
-Clone the repository
+1. Sales Amount Between Two Dates
 
-```
+Calculate the total sales (item price × quantity) filtered by a start and end date.
 
-git clone https://github.com/ayamnash/telegram-mcp-ms_access-agent.git
-cd telegram-mcp-ms_access-agent
+2. Purchase Amount Between Two Dates
 
-```
+Calculate total purchases (item price × quantity) between two dates.
 
-Install dependencies
+3. Sum of Items Sold Between Two Dates
 
-```
+Group by item name and calculate how many of each item was sold between two dates.
 
-pip install -r requirements.txt
-
-```
+4 detail expense between two dates
 
 ---
 
-# Configuration
+Save the queries as:
 
-Create or edit `config.py` and add your credentials:
+qry_SalesAmount_BetweenDates
+
+qry_PurchaseAmount_BetweenDates
+
+qry_SumSoldItems_BetweenDates
+
+qry_expense_details
+
+fix Issue may Encountered & Fixed:
+The only issue was with the Items table creation - the initial ItemDescription field size (500 characters) was too large for Access. I fixed this by reducing it to 255 characters, which is the standard maximum for Access text fields.
+
+All queries use parameter prompts [Start Date] and [End Date] so when you run them in Access, you'll be prompted to enter the date range. The database is ready for use!
+
+
+============================================
+
+
+
+(3)using mcp server  to
+Create a complete Laundry Management application in Microsoft Access name laundry_managemet1.accdb in this folder path 
+F:\mcp_server_ms_access_control1.
+
+Requirements:
+
+Database Structure
+
+Create all necessary tables with proper field names, data types, and primary/foreign keys.
+
+Include at least these entities:
+tables:-
+
+Customers (CustomerID, Name, Phone, Address, etc.)
+
+LaundryItems (ItemID, Description, PricePerUnit, etc.)
+
+Orders (OrderID, CustomerID, OrderDate, DueDate, Status, etc.)
+
+OrderDetails (OrderDetailID, OrderID, ItemID, Quantity, Subtotal, etc.)
+
+Payments (PaymentID, OrderID, PaymentDate, Amount, PaymentMethod, etc.)
+after create tables insert data for all table to testing 
+Queries:-
+
+Create queries for:
+
+Orders due today 
+
+Total sales per day/month named sales_dm
+
+Unpaid orders
+
+Customer order history
+
+Forms:-
+
+Customer management form (add, edit, delete).
+
+Order entry form with subform for order details.
+
+Payment entry form.
+
+Reports:-
+creat report named customer_report from Customers tables
+creat report named sales_dm from sales_dm query
+
+============================================
+
+
+
+(4)using mcp server  to
+Create a complete Microsoft Access database for managing a school named School_Management.accdb in this folder path F:\mcp_server_ms_access_control1 . 
+The database should include all necessary tables, queries, forms, and reports, each with clear and consistent naming. The system should support student enrollment, teacher assignments, class schedules, grades, attendance, and fee tracking.
+
+📁 Tables:
+Students_Table: StudentID, FirstName, LastName, DOB, Gender, Address, Phone, Email, EnrollmentDate, ClassID
+
+Teachers_Table: TeacherID, FirstName, LastName, SubjectSpecialization, Phone, Email, HireDate
+
+Classes_Table: ClassID, ClassName, GradeLevel, TeacherID, RoomNumber
+
+Subjects_Table: SubjectID, SubjectName, ClassID, TeacherID
+
+Grades_Table: GradeID, StudentID, SubjectID, Grade, Term, Year
+
+Attendance_Table: AttendanceID, StudentID, Date, Status (Present/Absent/Late), Remarks
+
+Fees_Table: FeeID, StudentID, AmountDue, AmountPaid, DueDate, PaymentDate, Status
+
+🔍 Queries:
+Outstanding_Fees_Query: List of students with unpaid fees
+
+Attendance_Summary_Query: Attendance summary per student
+
+Grade_Average_Query: Average grades per class and subject
+
+Teacher_Assignment_Query: Teachers assigned to each class
+
+🧾 Forms:
+Student_Registration_Form: For entering and updating student details
+
+Teacher_Profile_Form: For entering teacher information
+
+Class_Scheduling_Form: For managing class details and assignments
+
+Grade_Entry_Form: For recording student grades
+
+Attendance_Tracking_Form: For marking and reviewing attendance
+
+Fee_Payment_Form: For recording fee payments
+
+📊 Reports:
+Student_Report_Card: Displays student grades and performance
+
+Monthly_Attendance_Report: Attendance overview by month
+
+Fee_Collection_Report: Summary of fee payments and dues
+
+Class_Schedule_Report: Overview of class schedules
+
+Teacher_Workload_Report: Summary of teacher assignments and subjects
+
+Ensure relational integrity using primary and foreign keys. Use combo boxes, subforms, and validation rules for usability. Design the interface to be intuitive for school administrators.
+
+
+📌 Features
+
+[v1 features vedeo](https://www.youtube.com/watch?v=TplSweAx4XU)
+
+[v2 features vedeo](https://www.youtube.com/watch?v=vtuiIgX98t4)
+
+[v3 features vedeo](https://www.youtube.com/watch?v=2-KPeqXjBLw)
+[v3.1 features vedeo](https://www.youtube.com/watch?v=JzANtOsIbrU)
+
+🎨 Form Creation Tools (v3 - NEW!)
+📝 generate_form_template – Generate a text template for Access forms
+
+🏗️ create_form_from_llm_text – Create Access forms from text definitions
+
+
+🗃️ Database Structure Tools
+🏗️ create_database – Create an empty Access .accdb database
+
+🧱 create_table – Create a table with specified schema
+
+📋 list_tables – List all tables in the database
+
+📊 Data Management Tools
+➕ insert_data – Insert rows into a table
+
+🧮 run_query – Execute SQL queries (SELECT, UPDATE, DELETE, etc.)
+
+🔎 Query Management Tools
+💾 save_query – Save a named query inside the Access database
+
+📄 list_saved_queries – List all saved queries in the database
+
+📜 VBA Module Tools (v2)
+📚 list_vba_modules – List all VBA modules in the Access database
+
+📖 read_vba_module – Read the code from a specific VBA module
+
+✍️ write_vba_module – Create or replace a VBA module with provided code
+
+❌ delete_vba_module – Delete a VBA module from the database
+
+🚀 run_vba_function – Execute a VBA function and return the result
+
+
+✨ **Form Types Supported:**
+- **Single Forms** – Standalone forms for data entry and viewing
+- **Subforms** – Forms designed to be embedded in other forms (datasheet view)
+- **Main Forms with Subforms** – Master-detail forms with embedded subforms and automatic linking
+
+🔧 **Enhanced Tools (v3 Improvements):**
+- **Improved Error Handling** – Better error messages and feedback for all operations
+- **Enhanced Query Management** – Fixed parameter handling in saved queries
+- **Optimized Form Generation** – Automatic GUID and NameMap generation for robust form creation
+- **Better Field Validation** – Improved data type handling and field size validation
+
+
+
+## Available Tools
+
+The MCP server provides the following tools:
+
+### 🗄️ Database Management
+- **`create_database(db_name: str)`** - Create a new Access database
+- **`list_tables(db_name: str)`** - List all tables in a database
+
+### 🏗️ Table Operations
+- **`create_table(db_name: str, table_name: str, schema: str)`** - Create a new table
+  - Example schema: `"ID INT PRIMARY KEY, Name TEXT(100), Age INT"`
+
+### 📊 Data Operations
+- **`insert_data(db_name: str, table: str, rows: list[dict])`** - Insert data into tables
+  - Example: `[{'ID': 1, 'Name': 'John', 'Age': 30}]`
+- **`run_query(db_name: str, sql: str)`** - Execute SQL queries (SELECT, UPDATE, DELETE, etc.)
+
+### 💾 Query Management
+- **`save_query(db_name: str, query_name: str, sql: str)`** - Save named queries
+- **`list_saved_queries(db_name: str)`** - List all saved queries
+
+### 📜 VBA Module Management (v2)
+- **`list_vba_modules(db_name: str)`** - List all VBA modules in the Access database
+- **`read_vba_module(db_name: str, module_name: str)`** - Read the code from a specific VBA module
+- **`write_vba_module(db_name: str, module_name: str, code: str)`** - Create or replace a VBA module with provided code
+- **`delete_vba_module(db_name: str, module_name: str)`** - Delete a VBA module from the database
+- **`run_vba_function(db_name: str, function_name: str, args: str)`** - Execute a VBA function and return the result
+
+### 🎨 Form Creation Tools (v3 - NEW!)
+- **`generate_form_template(db_name: str, record_source: str, form_type: str, ...)`** - Generate a text template for Access forms
+  - **form_type options:**
+    - `"single"` - Standard standalone form
+    - `"subform"` - Form designed for embedding (datasheet view)
+    - `"main"` - Form that contains a subform with automatic linking
+- **`create_form_from_llm_text(db_name: str, form_name: str, form_text: str)`** - Create Access forms from text definitions
+  - Automatically generates GUIDs and NameMaps
+  - Handles form validation and error correction
+  - Supports complex form layouts with subforms
+
+📊 Report Creation Tools (v3.1 - NEW!)
+📋 create_report_from_source – Create complete Access reports in a single step
+
+📝 generate_report_template – Generate customizable text templates for Access reports
+
+🏗️ create_report_from_template – Create Access reports from text definitions
+
+✨ **Report Types Supported:**
+- **Tabular Reports** – Data displayed in rows and columns (default)
+- **Columnar Reports** – Data displayed in a single-column layout
+- **Custom Reports** – Fully customizable reports using templates
+
 
 ```
+import win32com.client
+adox = win32com.client.Dispatch("ADOX.Catalog")
+conn_string = f"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={db_path};"
+adox.Create(conn_string)  # This creates the .accdb file
 
-BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
-GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"
-HUGGINGFACE_API_KEY= "YOUR_HUGGINGFACE_KEY"
+ADOX and why it's more reliable than ODBC
+ADOX (ActiveX Data Objects Extensions) is a Microsoft COM library specifically designed for database schema operations like creating databases and tables.
 
-```
+Why ADOX is better than ODBC for creating Access databases:
+
+ODBC (Open Database Connectivity) is a general-purpose database interface that sometimes has registry access issues on Windows
+ADOX uses Windows COM (Component Object Model) which has direct access to the Access database engine
+ADOX bypasses the registry issues that cause the "Unable to open registry key" errors you were seeing
+ADOX is Microsoft's recommended method for programmatically creating Access databases
+Here's what happens in the code:
+
+
+pyodbc 
+
+Driver detection: The code uses pyodbc.drivers() to list available database drivers
+Table creation and data operations: After ADOX creates the empty database file, pyodbc is used to:
+Connect to the database
+Create the  table
+Insert sample data
+Read data for verification
+
+
+ADOX: Creates the empty .accdb file
+pyodbc: Handles all the SQL operations (CREATE TABLE, INSERT, SELECT)
+So the combination gives you the best of both worlds:
+
+ADOX for reliable database file creation
+pyodbc for standard SQL operations
+This is why your script now works - it uses the most reliable method for each task instead of trying to do everything through ODBC alone.
+
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Access Driver Not Found**
+   ```
+   Exception: Access ODBC driver not found
+   ```
+   **Solution:**
+   - Install Microsoft Access Database Engine 2016 Redistributable
+   - **Critical:** Ensure the database engine matches your Python architecture (32-bit or 64-bit)
+   - Check available drivers: `python -c "import pyodbc; print(pyodbc.drivers())"`
+
+2. **Architecture Mismatch Error**
+   ```
+   [Microsoft][ODBC Driver Manager] The specified DSN contains an architecture mismatch
+   ```
+   **Solution:**
+   - Your Python and Access Database Engine have different architectures
+   - Check Python architecture: `python -c "import platform; print(platform.architecture())"`
+   - Check Office architecture: Excel → File → Account → About Excel
+   - Install matching Access Database Engine version
+
+3. **Office 2016/2019 Installation Conflicts**
+   ```
+   You cannot install the 64-bit version of Microsoft Access Database Engine 2016 because you currently have 32-bit Office products installed
+   ```
+   **Solution:**
+   - Use the `/quiet` parameter: `AccessDatabaseEngine_X64.exe /quiet`
+   - Or uninstall existing Office, install database engine, then reinstall Office
+   - Consider using the same architecture for both Python and Office
+
+4. **Permission Errors**
+   - Run installer as Administrator
+   - Check file permissions in the target directory
+   - Ensure the database file location is writable
+
+5. **Python Path Issues**
+   - Ensure your virtual environment is activated
+   - Verify all dependencies are installed: `pip list`
+   - Check if pywin32 is properly installed: `python -c "import win32com.client"`
+
+### Architecture Compatibility Quick Reference
+
+| Your Setup | Python Architecture | Required Database Engine |
+|------------|-------------------|-------------------------|
+| 32-bit Office 2016/2019 | 32-bit Python | AccessDatabaseEngine.exe (32-bit) |
+| 64-bit Office 2016/2019 | 64-bit Python | AccessDatabaseEngine_X64.exe (64-bit) |
+| No Office installed | 32-bit Python | AccessDatabaseEngine.exe (32-bit) |
+| No Office installed | 64-bit Python | AccessDatabaseEngine_X64.exe (64-bit) |
+
+### System Requirements
+
+- Windows 10/11
+- Microsoft Access 2016+ or Access Database Engine
+- Python 3.8 or higher
+- At least 100MB free disk space
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+- 📧 Email: ayamnash@gmail.com
+- 🐛 Issues: [GitHub Issues](https://github.com/ayamnash/MCP_server_ms_access_control/issues)
+
 
 ---
 
-# Run the Bot
+Made with ❤️ for the MCP community
 
-Start the application
 
-```
 
-python main.py
 
-```
 
-If everything is configured correctly you should see:
 
-```
 
-BOT RUNNING
 
-```
 
-Now you can control your Microsoft Access database directly from Telegram.
 
----
 
-# Dependencies
 
-The project uses the following Python libraries:
 
-- fastmcp
-- python-telegram-bot
-- pyodbc
-- pywin32
-- google-generativeai
-- openai
 
----
 
-# Use Cases
 
-- Remote database management
-- AI-assisted database queries
-- Telegram-based automation
-- AI agent experimentation with MCP
 
----
-
-# License
-
-This project is open-source and provided for educational and experimental purposes.
-```
-
----
-
-💡 إذا أردت، أستطيع أيضاً أن .
