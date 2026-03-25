@@ -211,6 +211,4 @@ The project uses the following Python libraries:
 This project is open-source and provided for educational and experimental purposes.
 ```
 
----
 
-💡 إذا أردت، أستطيع أيضاً أن .
