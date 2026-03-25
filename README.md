@@ -1,6 +1,12 @@
 ## Demo Video
 
 [![Watch the video](https://img.youtube.com/vi/EWxoyoI3oHY/0.jpg)](https://youtu.be/EWxoyoI3oHY)
+## v 0.03
+Using skill.md file 
+In the same way a README.md tells a human what a project does, a skill.md acts as a "behavior manual" for the AI. Its main goal is consistency and specialized performance.
+![Architecture](./images/bot_skill_md_architecture.svg)
+![Architecture](./images/skill.png)
+![Architecture](./images/json and skill.png)
 ## v 0.02
 Giving AI information about your database and how to handle it.
 AI = brain, Python bot = coordinator, MCP server = hands that touch the database
