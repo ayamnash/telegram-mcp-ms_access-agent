@@ -10,6 +10,14 @@ This project demonstrates how natural language messages sent to a Telegram bot c
 The system connects Telegram, an AI model, and a local database through MCP to enable remote database interaction.
 
 ---
+v0.03
+replace db_context.py with skill.md file
+In the same way a README.md tells a human what a project does, a skill.md acts as a "behavior manual" for the AI. Its main goal is consistency and specialized performance.
+![Architecture](./images/bot_skill_md_architecture.svg)
+skill.md function
+![Architecture](./images/skill.png)
+Comparison between AI models for JSON compliance and Skill.md file adherence
+![Architecture](./images/json and skill.png)
 
 # Project Repository
 
