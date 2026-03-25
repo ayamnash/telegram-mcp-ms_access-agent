@@ -4,7 +4,7 @@
 ## v 0.02
 Giving AI information about your database and how to handle it.
 AI = brain, Python bot = coordinator, MCP server = hands that touch the database
-![Architecture](diagram.svg)
+![Architecture](./images/db_context_v.02.svg)
 # Telegram MCP MS Access Agent
 
 Control a **Microsoft Access database** directly from **Telegram** using an **AI Agent** powered by the **Model Context Protocol (MCP)**.
