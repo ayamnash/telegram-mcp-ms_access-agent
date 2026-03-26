@@ -15,9 +15,18 @@ The system connects Telegram, an AI model, and a local database through MCP to e
 replace db_context.py with skill.md file
 In the same way a README.md tells a human what a project does, a skill.md acts as a "behavior manual" for the AI. Its main goal is consistency and specialized performance.
 
-sample promt insert new invoice dated 1-3-2026 for ayman customers  total amount 200 items  rice 10*10 sugar 10*10 ?
+sample promt 
+insert invoice  total amount 25
+item    sugar  5*5  
+date 5-1-2026
+customer ayman
 
-result data inserted to both  invoices and itemstrans tables
+reply from bot
+nsert invoice  total amount 25
+item    sugar  5*5  
+date 5-1-2026
+customer david
+
 
 
 ![Architecture](./images/bot_skill_md_architecture.svg)
