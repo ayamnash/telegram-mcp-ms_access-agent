@@ -1,3 +1,4 @@
+![Architecture](./images/mermaid-diagram.svg)
 ## 📂 File Overview
 
 | File                   | Description |
