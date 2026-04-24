@@ -1,3 +1,5 @@
+
+![Architecture](./images/CHATBOT.svg)
 ![Architecture](./images/mermaid-diagram.svg)
 ## 📂 File Overview
 
