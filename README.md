@@ -1,5 +1,5 @@
 
-![Architecture](./images/CHATBOT.svg)
+![Architecture](./images/chatbot.png)
 ![Architecture](./images/mermaid-diagram.svg)
 ## 📂 File Overview
 
